@@ -51,6 +51,33 @@ function App() {
     setPreviewUrl(null);
   };
 
+  const handleUpload = async () => {
+    const file = fileInputRef.current.files[0];
+    if (!file) {
+      alert('Please select a file to upload.');
+      return;
+    }
+    try {
+      const formData = new FormData();
+      formData.append('video', file);
+
+      const response = await fetch('http://localhost:3000/video/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      alert('Video uploaded successfully!');
+      console.log('Response:', data);
+      // Handle the response data as needed
+    } catch (error) {
+      console.error('Error uploading video:', error);
+      alert('Error uploading video. Please try again.');
+    }
+  }
+
   return (
     <div className="max-w-2xl mx-auto p-6">
       <div 
@@ -121,7 +148,7 @@ function App() {
       {previewUrl && (
         <div className="mt-4 flex justify-end">
           <button
-            onClick={() => {/* Add your upload logic here */}}
+            onClick={handleUpload}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             Upload Video
