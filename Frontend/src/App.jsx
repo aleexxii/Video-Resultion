@@ -61,7 +61,7 @@ function App() {
       const formData = new FormData();
       formData.append('video', file);
 
-      const response = await fetch('http://localhost:3000/video/upload', {
+      const response = await fetch('http://localhost:8000/video/upload', {
         method: 'POST',
         body: formData,
       });

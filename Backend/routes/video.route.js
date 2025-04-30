@@ -7,7 +7,7 @@ import path from "path";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "Backend/uploads");
+    cb(null, "uploads");
   },
   filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
 });
@@ -30,7 +30,7 @@ console.log('File : ', file);
   const fileName = path.parse(file.originalname).name;
 
   resolutions.forEach(({ label, height }) => {
-    const outputPath = `backend/outputs/${fileName}_${label}.mp4`;
+    const outputPath = `output/${fileName}_${label}.mp4`;
 
     const ffmpeg = spawn('ffmpeg', [
       '-i', inputPath,
